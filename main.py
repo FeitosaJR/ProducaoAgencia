@@ -211,7 +211,7 @@ def abrir_tela_registros():
 
     # Frame de filtros
     frame_filtros = tk.Frame(janela_registros)
-    frame_filtros.pack(pady=10)
+    frame_filtros.pack(pady=10, fill="x")
 
     tk.Label(frame_filtros, text="PA:").grid(row=0, column=0, padx=5)
     entry_filtro_pa = ttk.Combobox(frame_filtros, values=carregar_pas())
@@ -253,8 +253,12 @@ def abrir_tela_registros():
     btn_exportar_excel = tk.Button(frame_filtros, text="Exportar para Excel", command=exportar_para_excel)
     btn_exportar_excel.grid(row=2, column=7, padx=5)
 
+    # Frame para a Treeview e barras de rolagem
+    frame_treeview = tk.Frame(janela_registros)
+    frame_treeview.pack(expand=True, fill="both", padx=10, pady=10)
+
     # Treeview
-    tree = ttk.Treeview(janela_registros, columns=("PA", "Colaborador", "Data", "CPF/CNPJ", "Cliente", "Produto", "Status", "Valor", "Observações"), show="headings")
+    tree = ttk.Treeview(frame_treeview, columns=("PA", "Colaborador", "Data", "CPF/CNPJ", "Cliente", "Produto", "Status", "Valor", "Observações"), show="headings")
     tree.heading("PA", text="PA", command=lambda: ordenar_coluna(tree, "PA", False))
     tree.heading("Colaborador", text="Colaborador", command=lambda: ordenar_coluna(tree, "Colaborador", False))
     tree.heading("Data", text="Data", command=lambda: ordenar_coluna(tree, "Data", False))
@@ -264,6 +268,17 @@ def abrir_tela_registros():
     tree.heading("Status", text="Status", command=lambda: ordenar_coluna(tree, "Status", False))
     tree.heading("Valor", text="Valor", command=lambda: ordenar_coluna(tree, "Valor", False))
     tree.heading("Observações", text="Observações", command=lambda: ordenar_coluna(tree, "Observações", False))
+
+    # Barra de rolagem vertical
+    scrollbar_vertical = ttk.Scrollbar(frame_treeview, orient="vertical", command=tree.yview)
+    scrollbar_vertical.pack(side="right", fill="y")
+
+    # Barra de rolagem horizontal
+    scrollbar_horizontal = ttk.Scrollbar(frame_treeview, orient="horizontal", command=tree.xview)
+    scrollbar_horizontal.pack(side="bottom", fill="x")
+
+    # Configura a Treeview para usar as barras de rolagem
+    tree.configure(yscrollcommand=scrollbar_vertical.set, xscrollcommand=scrollbar_horizontal.set)
     tree.pack(expand=True, fill="both")
 
     tree.bind("<Double-1>", carregar_para_edicao)
