@@ -457,7 +457,7 @@ def carregar_para_edicao(event):
         entry_colaborador.delete(0, tk.END)
         entry_colaborador.insert(0, valores[1])
         entry_data.delete(0, tk.END)
-        entry_data.insert(0, datetime.strptime(valores[2], "%Y-%m-%d").strftime("%d-%m-%Y"))
+        entry_data.insert(0, datetime.strptime(valores[2], "%d-%m-%Y").strftime("%d-%m-%Y"))
         entry_cpf_cnpj.delete(0, tk.END)
         entry_cpf_cnpj.insert(0, valores[3])
         entry_cliente.delete(0, tk.END)
