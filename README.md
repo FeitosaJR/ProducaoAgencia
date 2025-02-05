@@ -1,2 +1,2 @@
 # ProducaoAgencia
- Sistema para registro de produção dos colaboradores de uma empresa
+ Sistema para controle e registro de produção dos colaboradores de uma empresa.
